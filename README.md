@@ -80,8 +80,8 @@ Tested with ROS2 versions foxy and galactic on Ubuntu 20.04 and humble on Ubuntu
 - [gtsam](https://gtsam.org/get_started) (Georgia Tech Smoothing and Mapping library)
   ```
   # Add GTSAM-PPA
-  sudo add-apt-repository ppa:borglab/gtsam-release-4.1
-  sudo apt install libgtsam-dev libgtsam-unstable-dev
+  sudo add-apt-repository ppa:borglab/gtsam-develop
+  sudo apt install libgtsam-dev libgtsam-unstable-dev libeigen3-dev
   ```
 
 ## Install
@@ -94,7 +94,7 @@ Use the following commands to download and compile the package.
   cd LIO-SAM
   git checkout ros2
   cd ..
-  colcon build
+  colcon build --symlink-install --packages-select lio_sam
   ```
 
 ## Using Docker
