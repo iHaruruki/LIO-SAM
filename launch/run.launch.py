@@ -21,7 +21,17 @@ def generate_launch_description():
 
     print("urdf_file_name : {}".format(xacro_path))
 
-    return LaunchDescription([
+    complementary_args = [
+        DeclareLaunchArgument("cf_publish_tf", default_value="true"),
+        DeclareLaunchArgument("cf_use_mag", default_value="false"),
+        DeclareLaunchArgument("cf_bias_alpha", default_value="0.01"),
+        DeclareLaunchArgument("cf_gain_acc", default_value="0.01"),
+        DeclareLaunchArgument("cf_gain_mag", default_value="0.01"),
+    ]
+    cf_parameters = [{arg.name: LaunchConfiguration(arg.name)} for arg in complementary_args]
+
+    return LaunchDescription(
+        complementary_args + [
         params_declare,
         Node(
             package='tf2_ros',
@@ -38,6 +48,16 @@ def generate_launch_description():
             parameters=[{
                 'robot_description': Command(['xacro', ' ', xacro_path])
             }]
+        ),
+        Node(
+            package='imu_complementary_filter',
+            executable='complementary_filter_node',
+            name='complementary_filter_node',
+            parameters=cf_parameters,
+            remappings=[
+                ('/imu/data_raw', '/unilidar/imu')
+            ],
+            output='screen',
         ),
         Node(
             package='lio_sam',

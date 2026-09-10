@@ -3,7 +3,7 @@
 
     # Topics
     pointCloudTopic: "unilidar/cloud"           # Point cloud data
-    imuTopic: "unilidar/imu"                    # IMU data
+    imuTopic: "/imu/data"                    # IMU data
     odomTopic: "odometry/imu"                   # IMU pre-preintegration odometry, same frequency as IMU
     gpsTopic: "odometry/gpsz"                   # GPS odometry topic from navsat, see module_navsat.launch file
 
@@ -37,9 +37,13 @@
     imuGyrNoise: 1.5636343949698187e-03
     imuAccBiasN: 6.4356659353532566e-05
     imuGyrBiasN: 3.5640318696367613e-05
+    # imuAccNoise: 0.01
+    # imuGyrNoise: 0.01
+    # imuAccBiasN: 0.0002
+    # imuGyrBiasN: 0.0002
 
     imuGravity: 9.80511
-    imuRPYWeight: 0.01
+    imuRPYWeight: 0.1
 
     extrinsicTrans:  [ 0.0,  0.0,  0.0 ]
     extrinsicRot:    [-1.0,  0.0,  0.0,
